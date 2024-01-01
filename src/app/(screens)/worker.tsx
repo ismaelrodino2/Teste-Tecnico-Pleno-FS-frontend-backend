@@ -50,9 +50,7 @@ export async function Worker() {
   
 
   return (
-    <div>
-      {JSON.stringify(orders)}
-      
+    <div>      
       <WorkerScreen adms={adms} orders={orders} />
     </div>
   );

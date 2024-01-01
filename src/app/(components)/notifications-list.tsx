@@ -5,6 +5,7 @@ import { FC, useEffect, useState } from "react";
 import { Button, notification } from "antd";
 import axios from "axios";
 import { useRouter } from "next/navigation";
+import Pusher from "pusher-js";
 
 interface Props {
   initialNotifications: any;
@@ -19,14 +20,20 @@ export const Notifications = (props: Props) => {
   >([]);
 
   useEffect(() => {
-    pusherClient.subscribe("dashboard"); //same room Id -> route '/'
+    const pusher = new Pusher(
+      process.env.NEXT_PUBLIC_PUSHER_APP_KEY! as string,
+      {
+        cluster: "sa1",
+      }
+    );
+    pusher.subscribe("dashboard");
 
-    pusherClient.bind("incoming-notification", (text: Notification) => {
-      setIncomingNotifications((prev) => [...prev, text]);
-    });
+    pusher.bind("incoming-notification", (notification: any) =>
+      setIncomingNotifications((prev) => [...prev, notification])
+    );
 
     return () => {
-      pusherClient.unsubscribe("dashboard");
+      pusher.unsubscribe("dashboard");
     };
   }, []);
 
@@ -45,32 +52,25 @@ export const Notifications = (props: Props) => {
       setLoading("");
     }
   }
+  const allNotifications = [...props.initialNotifications, ...incomingNotifications];
 
   return (
-    <div>
-      {props.initialNotifications.map((notification: Notification) => (
-        <div key={notification.id}>
-          <Button
-            loading={loading === notification.id}
-            disabled={notification.confirmation}
-            onClick={() => handleConfirmArrive(notification.id)}
-          >
-            Confirmar Chegada
-          </Button>
-        </div>
-      ))}
+    <div className="container mx-auto p-4">
+      <h1 className="text-2xl font-bold mb-4">Confirmação de Chegada</h1>
 
-      {incomingNotifications.map((notification) => (
-        <div key={notification.id}>
-          <Button
-            loading={loading === notification.id}
-            disabled={notification.confirmation}
-            onClick={() => handleConfirmArrive(notification.id)}
-          >
-            Confirmar Chegada
-          </Button>
-        </div>
-      ))}
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 mt-4">
+        {allNotifications.map((notification) => (
+          <div key={notification.id}>
+            <Button
+              loading={loading === notification.id}
+              disabled={notification.confirmation}
+              onClick={() => handleConfirmArrive(notification.id)}
+            >
+              Confirmar Chegada
+            </Button>
+          </div>
+        ))}
+      </div>
     </div>
   );
 };

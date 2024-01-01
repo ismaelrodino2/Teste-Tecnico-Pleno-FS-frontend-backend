@@ -64,7 +64,7 @@ const SignInScreen = () => {
         </span>
       </div>
 
-      <p className="text-center text-sm text-[gray-600] mt-2 pt-6">
+      <p className="text-center text-sm text-gray mt-2 pt-6">
         {"auth.signIn.ifYouDontHave"}
         <Link
           className="text-primaryBlue font-medium hover:underline"
