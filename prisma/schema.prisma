@@ -1,0 +1,42 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id          String   @id @default(cuid())
+  accountType String?
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+  email       String   @unique @default("")
+  password    String?
+
+  workerNotifications Notification[] @relation("workerNotifications")
+  admNotification     Notification[] @relation("admNotification")
+}
+
+model Notification {
+  id           String   @id @default(uuid())
+  confirmation Boolean  @default(false)
+  workerId     String
+  admId        String
+  createdAt    DateTime @default(now()) @map("created_at")
+  order        Order[]
+
+  worker User @relation(name: "workerNotifications", fields: [workerId], onDelete: Cascade, references: [id])
+  adm    User @relation(name: "admNotification", fields: [admId], onDelete: Cascade, references: [id])
+}
+
+model Order {
+  id             String   @id @default(cuid())
+  items          String[]
+  address        String
+  clientName     String
+  notificationId String
+
+  author Notification @relation(fields: [notificationId], onDelete: Cascade, references: [id])
+}
