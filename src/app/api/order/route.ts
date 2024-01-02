@@ -54,8 +54,10 @@ export async function GET(req: NextRequest) {
     });
   }
 
+  console.log('adasd', workerId)
+
   try {
-    const order = await prisma.order.findMany({
+    const orders = await prisma.order.findMany({
       where: {
         author: {
           workerId: workerId,
@@ -65,13 +67,13 @@ export async function GET(req: NextRequest) {
         author: true,
       },
     });
-    return new Response(JSON.stringify({ order }), {
+    return new Response(JSON.stringify({ orders }), {
       status: 200,
       headers: corsHeaders,
     });
   } catch (err) {
     console.log("err123", err);
-    return new Response(JSON.stringify({ order: null }), {
+    return new Response(JSON.stringify({ orders: null }), {
       status: 500,
       headers: corsHeaders,
     });
