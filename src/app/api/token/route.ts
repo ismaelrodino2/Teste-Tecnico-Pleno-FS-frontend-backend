@@ -19,13 +19,19 @@ export async function GET(req: NextRequest) {
     console.log("payload", payload);
     // return NextResponse.json({ foo: "bar" }, { headers: corsHeaders });
 
-    return NextResponse.json(JSON.stringify({ encodedToken: payload }), {
-      headers: corsHeaders,
-    });
+    return NextResponse.json(
+      { decodedToken: payload },
+      {
+        headers: corsHeaders,
+      }
+    );
   } catch (err) {
-    return NextResponse.json(JSON.stringify({ encodedToken: null }), {
-      headers: corsHeaders,
-    });
+    return NextResponse.json(
+      { decodedToken: null },
+      {
+        headers: corsHeaders,
+      }
+    );
   } finally {
     await prisma.$disconnect();
   }
@@ -38,11 +44,14 @@ export async function POST(req: NextRequest) {
     const token = await new SignJWT(info)
       .setProtectedHeader({ alg: "HS256", typ: "JWT" })
       .sign(new TextEncoder().encode(process.env.NEXT_PUBLIC_JWT_SECRET!));
-    return NextResponse.json(JSON.stringify({ decodedToken: token }), {
-      headers: corsHeaders,
-    });
+    return NextResponse.json(
+      { encodedToken: token },
+      {
+        headers: corsHeaders,
+      }
+    );
   } catch (err) {
-    return new Response(JSON.stringify({ token: null }));
+    return Response.json({ encodedToken: null });
   } finally {
     await prisma.$disconnect();
   }

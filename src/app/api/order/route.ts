@@ -28,16 +28,22 @@ export async function POST(req: NextRequest) {
       },
     });
 
-    return new Response(JSON.stringify({ order }), {
-      status: 200,
-      headers: corsHeaders,
-    });
+    return Response.json(
+      { order },
+      {
+        status: 200,
+        headers: corsHeaders,
+      }
+    );
   } catch (err) {
     console.log("err123", err);
-    return new Response(JSON.stringify({ order: null }), {
-      status: 500,
-      headers: corsHeaders,
-    });
+    return Response.json(
+      { order: null },
+      {
+        status: 500,
+        headers: corsHeaders,
+      }
+    );
   } finally {
     await prisma.$disconnect();
   }
@@ -54,7 +60,7 @@ export async function GET(req: NextRequest) {
     });
   }
 
-  console.log('adasd', workerId)
+  console.log("adasd", workerId);
 
   try {
     const orders = await prisma.order.findMany({
@@ -67,16 +73,22 @@ export async function GET(req: NextRequest) {
         author: true,
       },
     });
-    return new Response(JSON.stringify({ orders }), {
-      status: 200,
-      headers: corsHeaders,
-    });
+    return Response.json(
+      { orders },
+      {
+        status: 200,
+        headers: corsHeaders,
+      }
+    );
   } catch (err) {
     console.log("err123", err);
-    return new Response(JSON.stringify({ orders: null }), {
-      status: 500,
-      headers: corsHeaders,
-    });
+    return Response.json(
+      { orders: null },
+      {
+        status: 500,
+        headers: corsHeaders,
+      }
+    );
   } finally {
     await prisma.$disconnect();
   }

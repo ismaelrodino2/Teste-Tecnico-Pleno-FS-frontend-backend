@@ -25,16 +25,22 @@ export async function POST(req: NextRequest) {
         workerId: body.workerId,
       },
     });
-    return new Response(JSON.stringify({ notification }), {
-      status: 200,
-      headers: corsHeaders,
-    });
+    return Response.json(
+      { notification },
+      {
+        status: 200,
+        headers: corsHeaders,
+      }
+    );
   } catch (err) {
     console.log("err123", err);
-    return new Response(JSON.stringify({ notification: null }), {
-      status: 500,
-      headers: corsHeaders,
-    });
+    return Response.json(
+      { notification: null },
+      {
+        status: 500,
+        headers: corsHeaders,
+      }
+    );
   } finally {
     await prisma.$disconnect();
   }
@@ -54,16 +60,22 @@ export async function PUT(req: NextRequest) {
         confirmation: body.confirmation,
       },
     });
-    return new Response(JSON.stringify({ notification }), {
-      status: 200,
-      headers: corsHeaders,
-    });
+    return Response.json(
+      { notification },
+      {
+        status: 200,
+        headers: corsHeaders,
+      }
+    );
   } catch (err) {
     console.log("err123", err);
-    return new Response(JSON.stringify({ Notification }), {
-      status: 500,
-      headers: corsHeaders,
-    });
+    return Response.json(
+      { Notification },
+      {
+        status: 500,
+        headers: corsHeaders,
+      }
+    );
   } finally {
     await prisma.$disconnect();
   }

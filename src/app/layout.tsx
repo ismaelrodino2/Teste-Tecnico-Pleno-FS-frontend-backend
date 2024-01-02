@@ -4,6 +4,7 @@ import "./globals.css";
 import Provider from "@/providers/session-provider";
 import { StyleProviderCtx } from "@/contexts/StyleProviderContext";
 import { AuthProvider } from "@/contexts/AuthContext";
+import { NavBar } from "@/components/nav-bar";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -21,7 +22,12 @@ export default function RootLayout({
     <html lang="en">
       <body className={inter.className}>
         <StyleProviderCtx>
-          <AuthProvider><main className="min-h-screen">{children}</main></AuthProvider>
+          <AuthProvider>
+            <main className="min-h-screen">
+              <NavBar />
+              {children}
+            </main>
+          </AuthProvider>
         </StyleProviderCtx>
       </body>
     </html>

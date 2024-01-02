@@ -8,7 +8,7 @@ import { Worker } from "../(screens)/worker";
 export default async function Dashboard() {
   //we need to keep in the same url for the 'chatRoomId'
   const session = await useGetSessionServerSide();
-  console.log("asdasdasdasd", session);
+console.log('session', session)
   return (
     <div>
       {session?.accountType === "adm" ? <Adm /> : <Worker />}

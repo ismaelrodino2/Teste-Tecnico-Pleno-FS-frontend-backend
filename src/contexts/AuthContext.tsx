@@ -1,5 +1,11 @@
-"use client";;
-import React, { createContext, useState, useEffect, ReactNode, useContext } from "react";
+"use client";
+import React, {
+  createContext,
+  useState,
+  useEffect,
+  ReactNode,
+  useContext,
+} from "react";
 import { deleteCookie, setCookie, getCookie } from "cookies-next";
 import axios from "axios";
 import { useRouter } from "next/navigation";
@@ -41,7 +47,7 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
           headers: { Authorization: `Bearer ${parsedToken.token}` },
         });
 
-        console.log("adsadasd", decriptedToken);
+        console.log("adsadasd", decriptedToken.data);
         const finalToken = decriptedToken.data.decodedToken;
         console.log("finalToken", finalToken);
 
@@ -74,31 +80,31 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
             email: data.user.email,
           },
         });
-        console.log("user", user);
+        console.log("user", user.data);
         const info = {
           authenticated: true,
-          user,
+          user: user.data.user,
         };
 
-        console.log('infoinfo',info)
+        console.log("infoinfo", info);
 
         setAuthenticated(true);
 
-        setUser(info?.user?.data?.user);
+        setUser(info?.user);
 
         const token = await axios.post("/api/token", {
           info: info,
         });
 
-        console.log(token);
+        console.log("token123", token.data);
+        console.log("token.data.encodedToken", token.data.encodedToken);
 
         setCookie(
           "supabase-auth",
-          { token: token.data.token },
+          { token: token.data.encodedToken },
           { maxAge: 60 * 6 * 24 }
         );
 
-        router.push("/");
         return true; // Return true to indicate successful login
       } else {
         throw new Error("Error authenticating");
@@ -124,7 +130,7 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
   );
 };
 
-export function useGetSessionClientSide(){
-  const {user} = useContext(AuthContext)
-  return user
+export function useGetSessionClientSide() {
+  const { user } = useContext(AuthContext);
+  return user;
 }

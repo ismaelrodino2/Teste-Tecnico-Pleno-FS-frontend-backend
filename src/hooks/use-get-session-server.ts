@@ -9,6 +9,8 @@ export const useGetSessionServerSide = async () => {
   const cookieStore = cookies();
   const token = cookieStore.get("supabase-auth");
 
+  console.log('asdasddsa', token)
+
   if (!token) {
     return null;
   }
