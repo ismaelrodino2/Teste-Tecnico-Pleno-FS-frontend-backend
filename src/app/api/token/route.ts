@@ -1,7 +1,17 @@
 import prisma from "@/lib/db";
-import { NextRequest } from "next/server";
+import { NextRequest, NextResponse } from "next/server";
 import { headers } from "next/headers";
 import { SignJWT, jwtVerify } from "jose";
+
+export const corsHeaders = {
+  "Access-Control-Allow-Origin": "*",
+  "Access-Control-Allow-Methods": "GET, POST, PUT, DELETE, OPTIONS",
+  "Access-Control-Allow-Headers": "Content-Type, Authorization",
+};
+
+export async function OPTIONS(req: NextRequest) {
+  return NextResponse.json({}, { headers: corsHeaders });
+}
 
 export async function GET(req: NextRequest) {
   const authorization = headers().get("Authorization");
@@ -9,17 +19,22 @@ export async function GET(req: NextRequest) {
   // const bearerToken = req.headers["Authorization"] as string;
   const token = authorization?.split(" ")[1];
 
-
-  console.log('aaaai token', token)
+  console.log("aaaai token", token);
   try {
     const { payload } = await jwtVerify(
       token!,
       new TextEncoder().encode(process.env.NEXT_PUBLIC_JWT_SECRET!)
     );
-    console.log('payload', payload)
-    return new Response(JSON.stringify({ decodedToken: payload }));
+    console.log("payload", payload);
+    // return NextResponse.json({ foo: "bar" }, { headers: corsHeaders });
+
+    return NextResponse.json(JSON.stringify({ encodedToken: payload }), {
+      headers: corsHeaders,
+    });
   } catch (err) {
-    return new Response(JSON.stringify({ decodedToken: null }));
+    return NextResponse.json(JSON.stringify({ encodedToken: null }), {
+      headers: corsHeaders,
+    });
   } finally {
     await prisma.$disconnect();
   }
@@ -32,7 +47,9 @@ export async function POST(req: NextRequest) {
     const token = await new SignJWT(info)
       .setProtectedHeader({ alg: "HS256", typ: "JWT" })
       .sign(new TextEncoder().encode(process.env.NEXT_PUBLIC_JWT_SECRET!));
-    return new Response(JSON.stringify({ token }));
+    return NextResponse.json(JSON.stringify({ decodedToken: token }), {
+      headers: corsHeaders,
+    });
   } catch (err) {
     return new Response(JSON.stringify({ token: null }));
   } finally {

@@ -1,5 +1,6 @@
 import prisma from "@/lib/db";
 import { pusherServer } from "@/lib/pusher";
+import { corsHeaders } from "@/lib/utils";
 import { NextRequest } from "next/server";
 
 export async function POST(req: NextRequest) {
@@ -16,22 +17,6 @@ export async function POST(req: NextRequest) {
     notificationId: body.notificationId,
   });
 
-  // {
-  //   id: '...',
-  //   items: ['item1', 'item2', 'item3'], // Exemplo de array de strings
-  //   address: '...',
-  //   clientName: '...',
-  //   notificationId: '...',
-  //   author: {
-  //     id: '...',
-  //     confirmation: true, // Exemplo de propriedade booleana
-  //     workerId: '...',
-  //     admId: '...',
-  //     createdAt: '...', // Exemplo de data e hora
-  //     // ... outras propriedades do modelo User
-  //   },
-  // },
-
   console.log("bodyy", body);
   try {
     const order = await prisma.order.create({
@@ -42,11 +27,53 @@ export async function POST(req: NextRequest) {
         notificationId: body.notificationId,
       },
     });
-    return new Response(JSON.stringify({ order }), { status: 200 });
+
+    return new Response(JSON.stringify({ order }), {
+      status: 200,
+      headers: corsHeaders,
+    });
   } catch (err) {
     console.log("err123", err);
     return new Response(JSON.stringify({ order: null }), {
       status: 500,
+      headers: corsHeaders,
+    });
+  } finally {
+    await prisma.$disconnect();
+  }
+}
+
+export async function GET(req: NextRequest) {
+  const { searchParams } = req.url ? new URL(req.url) : new URL("");
+
+  const workerId = searchParams.get("workerId");
+
+  if (!workerId) {
+    return new Response("Error: no workerId.", {
+      status: 500,
+    });
+  }
+
+  try {
+    const order = await prisma.order.findMany({
+      where: {
+        author: {
+          workerId: workerId,
+        },
+      },
+      include: {
+        author: true,
+      },
+    });
+    return new Response(JSON.stringify({ order }), {
+      status: 200,
+      headers: corsHeaders,
+    });
+  } catch (err) {
+    console.log("err123", err);
+    return new Response(JSON.stringify({ order: null }), {
+      status: 500,
+      headers: corsHeaders,
     });
   } finally {
     await prisma.$disconnect();

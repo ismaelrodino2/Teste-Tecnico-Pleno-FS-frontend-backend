@@ -46,7 +46,7 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
         console.log("finalToken", finalToken);
 
         console.log("cookies", cookies);
-        const isLoggedIn = !!finalToken?.id;
+        const isLoggedIn = !!finalToken?.authenticated;
         setUser(finalToken);
         setAuthenticated(isLoggedIn);
       } catch (error) {
@@ -80,12 +80,14 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
           user,
         };
 
+        console.log('infoinfo',info)
+
         setAuthenticated(true);
 
         setUser(info?.user?.data?.user);
 
         const token = await axios.post("/api/token", {
-          info: info?.user?.data?.user,
+          info: info,
         });
 
         console.log(token);

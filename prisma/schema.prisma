@@ -13,8 +13,6 @@ model User {
   createdAt   DateTime @default(now())
   updatedAt   DateTime @updatedAt
   email       String   @unique @default("")
-  password    String?
-
   workerNotifications Notification[] @relation("workerNotifications")
   admNotification     Notification[] @relation("admNotification")
 }

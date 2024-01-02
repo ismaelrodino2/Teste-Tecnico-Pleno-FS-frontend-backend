@@ -1,25 +1,7 @@
 import prisma from "@/lib/db";
 import { pusherServer } from "@/lib/pusher";
+import { corsHeaders } from "@/lib/utils";
 import { NextRequest } from "next/server";
-
-// export async function GET(req: NextRequest) {
-//   const { searchParams } = req.url ? new URL(req.url) : new URL("");
-
-//   const email: string = searchParams.get("email")!;
-
-//   console.log("iddd", email);
-
-//   try {
-//     const user = await prisma.user.findFirst({
-//       where: { email },
-//     });
-//     return new Response(JSON.stringify({ user }));
-//   } catch (err) {
-//     return new Response(JSON.stringify({ name: null }));
-//   } finally {
-//     await prisma.$disconnect();
-//   }
-// }
 
 export async function POST(req: NextRequest) {
   const { v4: uuidv4 } = require("uuid");
@@ -43,11 +25,15 @@ export async function POST(req: NextRequest) {
         workerId: body.workerId,
       },
     });
-    return new Response(JSON.stringify({ notification }), { status: 200 });
+    return new Response(JSON.stringify({ notification }), {
+      status: 200,
+      headers: corsHeaders,
+    });
   } catch (err) {
     console.log("err123", err);
     return new Response(JSON.stringify({ notification: null }), {
       status: 500,
+      headers: corsHeaders,
     });
   } finally {
     await prisma.$disconnect();
@@ -60,13 +46,6 @@ export async function PUT(req: NextRequest) {
   console.log("asdasdada body", body);
 
   try {
-    // pusherServer.trigger("home", "incoming-notification", {
-    //   id: uniqueId,
-    //   admId: body.admId,
-    //   workerId: body.workerId,
-    //   confirmation: false,
-    // });
-
     const notification = await prisma.notification.update({
       where: {
         id: body.id,
@@ -75,11 +54,15 @@ export async function PUT(req: NextRequest) {
         confirmation: body.confirmation,
       },
     });
-    return new Response(JSON.stringify({ notification }), { status: 200 });
+    return new Response(JSON.stringify({ notification }), {
+      status: 200,
+      headers: corsHeaders,
+    });
   } catch (err) {
     console.log("err123", err);
-    return new Response(JSON.stringify({ notification: null }), {
+    return new Response(JSON.stringify({ Notification }), {
       status: 500,
+      headers: corsHeaders,
     });
   } finally {
     await prisma.$disconnect();

@@ -2,6 +2,7 @@ import { type ClassValue, clsx } from "clsx";
 import { twMerge } from "tailwind-merge";
 import { getCookie } from "cookies-next";
 import axios from "axios";
+import { NextRequest, NextResponse } from "next/server";
 
 export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs));
@@ -25,8 +26,18 @@ export const Cookies = async () => {
         Authorization: JSON.parse(cookie).token,
       },
     });
-    return cookies?.data?.decodedToken;
+    return cookies?.data?.encodedToken;
   } else {
     return null;
   }
 };
+
+export const corsHeaders = {
+  "Access-Control-Allow-Origin": "*",
+  "Access-Control-Allow-Methods": "GET, POST, PUT, DELETE, OPTIONS",
+  "Access-Control-Allow-Headers": "Content-Type, Authorization",
+};
+
+export async function OPTIONS(req: NextRequest) {
+  return NextResponse.json({}, { headers: corsHeaders });
+}
