@@ -23,7 +23,7 @@ export async function GET(req: NextRequest) {
     }
 
     if (accountType) {
-      const users = await prisma.user.findFirst({
+      const users = await prisma.user.findMany({
         where: { accountType },
       });
       return NextResponse.json(JSON.stringify(JSON.stringify({ users })), {
