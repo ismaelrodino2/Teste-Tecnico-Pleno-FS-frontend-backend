@@ -54,6 +54,8 @@ export const Notifications = (props: Props) => {
   }
   const allNotifications = [...props.initialNotifications, ...incomingNotifications];
 
+  console.log('allNotifications',allNotifications)
+
   return (
     <div className="container mx-auto p-4">
       <h1 className="text-2xl font-bold mb-4">Confirmação de Chegada</h1>
@@ -66,7 +68,7 @@ export const Notifications = (props: Props) => {
               disabled={notification.confirmation}
               onClick={() => handleConfirmArrive(notification.id)}
             >
-              Confirmar Chegada
+              Confirmar Chegada - {notification.createdAt}
             </Button>
           </div>
         ))}

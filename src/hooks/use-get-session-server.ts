@@ -29,7 +29,7 @@ export const useGetSessionServerSide = async () => {
 
     console.log("Token Decodificado:", payload);
 
-    return payload as User;
+    return payload.user as User;
   } catch (error) {
     console.error("Erro ao decodificar o token:", error);
     return null;

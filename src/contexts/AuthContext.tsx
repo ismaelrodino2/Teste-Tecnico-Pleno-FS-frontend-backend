@@ -53,7 +53,7 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
 
         console.log("cookies", cookies);
         const isLoggedIn = !!finalToken?.authenticated;
-        setUser(finalToken);
+        setUser(finalToken.user);
         setAuthenticated(isLoggedIn);
       } catch (error) {
         // Lidar com erros, como token inválido, aqui
@@ -120,7 +120,7 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
     await supabase.auth.signOut();
     setAuthenticated(false);
     deleteCookie("supabase-auth");
-    window.location.reload();
+    router.push("/signin")
   };
 
   return (
