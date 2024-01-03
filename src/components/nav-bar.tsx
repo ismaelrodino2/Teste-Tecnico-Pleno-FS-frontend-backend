@@ -38,7 +38,7 @@ export function NavBar() {
           </Link>
         </div>
         <button
-          onClick={async () => await logout()}
+          onClick={logout}
           className="text-highgGray font-medium hover:text-gray-300"
         >
           Logout

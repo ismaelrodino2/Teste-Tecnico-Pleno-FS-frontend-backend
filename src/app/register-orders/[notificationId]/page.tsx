@@ -81,7 +81,7 @@ export default function RegisterOrders({
           </Form.Item>
 
           <Form.List
-            name="items"
+            name="Itens para entrega"
             rules={[
               {
                 validator: async (_, names) => {
@@ -111,7 +111,7 @@ export default function RegisterOrders({
                           required: true,
                           whitespace: true,
                           message:
-                            "Please input item's name or delete this field.",
+                            "Por favor coloque o nome do item ou delete.",
                         },
                       ]}
                       noStyle
@@ -136,17 +136,17 @@ export default function RegisterOrders({
                     style={{ width: "60%" }}
                     icon={<PlusOutlined />}
                   >
-                    Add field
+                    Adicione um item para entrega
                   </Button>
                   <Button
                     type="dashed"
                     onClick={() => {
-                      add("The head item", 0);
+                      add("Item do começo", 0);
                     }}
                     style={{ width: "60%", marginTop: "20px" }}
                     icon={<PlusOutlined />}
                   >
-                    Add field at head
+                    Adicione o item para o começo
                   </Button>
                   <Form.ErrorList errors={errors} />
                 </Form.Item>
