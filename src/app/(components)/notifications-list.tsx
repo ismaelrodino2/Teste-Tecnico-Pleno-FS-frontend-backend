@@ -52,9 +52,12 @@ export const Notifications = (props: Props) => {
       setLoading("");
     }
   }
-  const allNotifications = [...props.initialNotifications, ...incomingNotifications];
+  const allNotifications = [
+    ...props.initialNotifications,
+    ...incomingNotifications,
+  ];
 
-  console.log('allNotifications',allNotifications)
+  console.log("allNotifications", allNotifications);
 
   return (
     <div className="container mx-auto p-4">
@@ -68,7 +71,8 @@ export const Notifications = (props: Props) => {
               disabled={notification.confirmation}
               onClick={() => handleConfirmArrive(notification.id)}
             >
-              Confirmar Chegada - {notification.createdAt}
+              Confirmar Chegada -
+              {new Date(notification.createdAt).toLocaleString()}
             </Button>
           </div>
         ))}
