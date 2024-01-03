@@ -1,23 +1,26 @@
 "use client";
 import Link from "next/link";
-import { Button, Checkbox, Form, Input } from "antd";
+import { Button, Checkbox, Form, Input, notification } from "antd";
 import { useContext, useState } from "react";
 import { SignInFormSchema } from "@/types/schemas";
 import { AuthContext } from "@/contexts/AuthContext";
+import { useRouter } from "next/navigation";
 
 const SignInScreen = () => {
   const [loading, setLoading] = useState(false);
   const { login } = useContext(AuthContext);
+  const router = useRouter();
 
   const onFinish = async (values: SignInFormSchema) => {
-    console.log(values)
     try {
       // Perform your login logic here
       const { email, password } = values;
       // Call the login function from the context
       await login(email, password);
+      notification.success({ message: "Logado com sucesso" });
+      router.push("/dashboard");
     } catch (error) {
-      // Handle login error
+      notification.error({ message: "Erro ao logar" });
       console.log(error);
     } finally {
       setLoading(false);

@@ -10,13 +10,11 @@ export async function GET(req: NextRequest) {
   // const bearerToken = req.headers["Authorization"] as string;
   const token = authorization?.split(" ")[1];
 
-  console.log("aaaai token", token);
   try {
     const { payload } = await jwtVerify(
       token!,
       new TextEncoder().encode(process.env.NEXT_PUBLIC_JWT_SECRET!)
     );
-    console.log("payload", payload);
     // return NextResponse.json({ foo: "bar" }, { headers: corsHeaders });
 
     return NextResponse.json(

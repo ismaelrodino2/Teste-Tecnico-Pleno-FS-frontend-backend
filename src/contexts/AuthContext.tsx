@@ -47,11 +47,8 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
           headers: { Authorization: `Bearer ${parsedToken.token}` },
         });
 
-        console.log("adsadasd", decriptedToken.data);
         const finalToken = decriptedToken.data.decodedToken;
-        console.log("finalToken", finalToken);
 
-        console.log("cookies", cookies);
         const isLoggedIn = !!finalToken?.authenticated;
         setUser(finalToken.user);
         setAuthenticated(isLoggedIn);
@@ -67,7 +64,6 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
 
   const login = async (email: string, password: string) => {
     // Perform login logic, set authenticated to true
-    console.log("teste", email, password);
     try {
       const { data } = await supabase.auth.signInWithPassword({
         email,
@@ -80,13 +76,11 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
             email: data.user.email,
           },
         });
-        console.log("user", user.data);
         const info = {
           authenticated: true,
           user: user.data.user,
         };
 
-        console.log("infoinfo", info);
 
         setAuthenticated(true);
 
@@ -96,8 +90,6 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
           info: info,
         });
 
-        console.log("token123", token.data);
-        console.log("token.data.encodedToken", token.data.encodedToken);
 
         setCookie(
           "supabase-auth",

@@ -9,7 +9,6 @@ export async function POST(req: NextRequest) {
   const body = await req.json();
   const uniqueId = uuidv4();
 
-  console.log("bodyy", body);
   try {
     pusherServer.trigger("dashboard", "incoming-notification", {
       id: uniqueId,
@@ -33,7 +32,6 @@ export async function POST(req: NextRequest) {
       }
     );
   } catch (err) {
-    console.log("err123", err);
     return Response.json(
       { notification: null },
       {
@@ -68,7 +66,7 @@ export async function PUT(req: NextRequest) {
       }
     );
   } catch (err) {
-    console.log("err123", err);
+    console.log( err);
     return Response.json(
       { Notification },
       {

@@ -8,9 +8,7 @@ export async function GET(req: NextRequest) {
   const email: string = searchParams.get("email")!;
   const accountType: string = searchParams.get("accountType")!;
 
-  console.log("aaaaa", email);
 
-  console.log("accountType", accountType);
 
   try {
     if (email) {

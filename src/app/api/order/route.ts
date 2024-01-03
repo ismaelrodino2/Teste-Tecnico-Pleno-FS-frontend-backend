@@ -17,7 +17,6 @@ export async function POST(req: NextRequest) {
     notificationId: body.notificationId,
   });
 
-  console.log("bodyy", body);
   try {
     const order = await prisma.order.create({
       data: {
@@ -36,7 +35,7 @@ export async function POST(req: NextRequest) {
       }
     );
   } catch (err) {
-    console.log("err123", err);
+    console.log( err);
     return Response.json(
       { order: null },
       {
@@ -60,7 +59,6 @@ export async function GET(req: NextRequest) {
     });
   }
 
-  console.log("adasd", workerId);
 
   try {
     const orders = await prisma.order.findMany({
@@ -81,7 +79,7 @@ export async function GET(req: NextRequest) {
       }
     );
   } catch (err) {
-    console.log("err123", err);
+    console.log( err);
     return Response.json(
       { orders: null },
       {

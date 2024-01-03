@@ -34,7 +34,6 @@ export default function RegisterOrders({
   const { notificationId } = params;
 
   const onFinish = async (values: RegisterOrderFormSchemaSubmit) => {
-    console.log(values);
     try {
       setLoading(true);
       await axios.post("/api/order", {

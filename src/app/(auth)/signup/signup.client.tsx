@@ -14,7 +14,6 @@ export function SignUpScreen() {
   const router = useRouter();
 
   const onFinish = async (values: SignUpFormSchemaSubmit) => {
-    console.log("values", values);
     const { email, password } = values;
     try {
       setLoading(true);
@@ -31,12 +30,12 @@ export function SignUpScreen() {
           accountType: values.accountType,
         }),
       });
-      if (response.ok) {
-        // router.push("/signin");
-      } 
+      notification.success({ message: "Cadastrado com sucesso" });
+
+      router.push("/signin");
     } catch (err) {
       notification.error({
-        message: "Registration failed.",
+        message: "Falha ao registrar",
       });
       console.error(err);
     } finally {

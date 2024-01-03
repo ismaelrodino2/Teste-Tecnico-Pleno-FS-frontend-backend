@@ -4,12 +4,9 @@ import { getCookie } from "cookies-next";
 import { jwtVerify } from "jose";
 import { cookies } from "next/headers";
 
-
 export const useGetSessionServerSide = async () => {
   const cookieStore = cookies();
   const token = cookieStore.get("supabase-auth");
-
-  console.log('asdasddsa', token)
 
   if (!token) {
     return null;
@@ -26,8 +23,6 @@ export const useGetSessionServerSide = async () => {
       latToken,
       new TextEncoder().encode(process.env.NEXT_PUBLIC_JWT_SECRET!)
     );
-
-    console.log("Token Decodificado:", payload);
 
     return payload.user as User;
   } catch (error) {

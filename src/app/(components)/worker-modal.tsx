@@ -16,7 +16,6 @@ type Props = {
 export function WorkerModal(props: Props) {
   const [loading, setLoading] = useState(false);
 
-  console.log("adas", props.adms);
 
   const session = useGetSessionClientSide();
   async function onFinish(values: NotificationFormSchema) {
@@ -25,7 +24,6 @@ export function WorkerModal(props: Props) {
         workerId: session?.id,
         admId: values.admId,
       });
-      console.log("123123", aa);
       setLoading(true);
       notification.success({ message: "Estabelecimento notificado" });
     } catch (err) {
