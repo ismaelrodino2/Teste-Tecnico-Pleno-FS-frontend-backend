@@ -13,7 +13,6 @@ export async function middleware(request: NextRequest) {
       token!,
       new TextEncoder().encode(process.env.NEXT_PUBLIC_JWT_SECRET!)
     );
-
   }
 
   if (!user?.payload) {
@@ -22,5 +21,5 @@ export async function middleware(request: NextRequest) {
 }
 
 export const config = {
-  matcher: ["/"],
+  matcher: ["/", "/dashboard"],
 };
