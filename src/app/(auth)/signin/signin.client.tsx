@@ -13,6 +13,8 @@ const SignInScreen = () => {
 
   const onFinish = async (values: SignInFormSchema) => {
     try {
+      setLoading(true);
+
       // Perform your login logic here
       const { email, password } = values;
       // Call the login function from the context
@@ -56,7 +58,7 @@ const SignInScreen = () => {
 
         <Form.Item wrapperCol={{ offset: 8, span: 16 }}>
           <Button type="primary" htmlType="submit" loading={loading}>
-            Submit
+            Login
           </Button>
         </Form.Item>
       </Form>
