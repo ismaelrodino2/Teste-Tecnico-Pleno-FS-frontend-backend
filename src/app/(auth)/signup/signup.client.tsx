@@ -105,12 +105,12 @@ export function SignUpScreen() {
       </div>
 
       <p className="text-center text-sm text-gray-600 mt-8">
-        {"auth.signup.alreadyHave"}
+        Já possui uma conta?
         <Link
           className="text-lightBlue hover:underline font-medium pl-1"
           href="/signin"
         >
-          {"auth.signup.loginNow"}
+          Faça login agora
         </Link>
       </p>
     </div>

@@ -14,8 +14,8 @@ import { User } from "@prisma/client";
 
 interface AuthContextProps {
   authenticated: boolean;
-  login: (email: string, password: string) => Promise<boolean>; // Updated type annotation
-  logout: () => void;
+  login: (email: string, password: string) => Promise<void>; // Updated type annotation
+  logout: () => Promise<void>;
   user?: User;
 }
 
@@ -81,7 +81,6 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
           user: user.data.user,
         };
 
-
         setAuthenticated(true);
 
         setUser(info?.user);
@@ -90,14 +89,13 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
           info: info,
         });
 
-
         setCookie(
           "supabase-auth",
           { token: token.data.encodedToken },
           { maxAge: 60 * 6 * 24 }
         );
 
-        return true; // Return true to indicate successful login
+        router.push("/dashboard");
       } else {
         throw new Error("Error authenticating");
       }
@@ -112,7 +110,7 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
     await supabase.auth.signOut();
     setAuthenticated(false);
     deleteCookie("supabase-auth");
-    router.push("/signin")
+    router.push("/signin");
   };
 
   return (

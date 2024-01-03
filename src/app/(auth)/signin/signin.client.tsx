@@ -20,7 +20,6 @@ const SignInScreen = () => {
       // Call the login function from the context
       await login(email, password);
       notification.success({ message: "Logado com sucesso" });
-      router.push("/dashboard");
     } catch (error) {
       notification.error({ message: "Erro ao logar" });
       console.log(error);
@@ -65,17 +64,17 @@ const SignInScreen = () => {
       <div className="inline-flex items-center justify-center w-full">
         <hr className="w-full h-px my-6 bg-lightGray border-0 " />
         <span className="absolute px-3 font-semibold text-sm text-mediumgGray -translate-x-1/2 bg-white left-1/2  ">
-          {"auth.or"}
+          Ou
         </span>
       </div>
 
       <p className="text-center text-sm text-gray mt-2 pt-6">
-        {"auth.signIn.ifYouDontHave"}
+        Não possui uma conta?
         <Link
           className="text-primaryBlue font-medium hover:underline"
           href="/signup"
         >
-          {"auth.signup.signUp"}
+          Cadastre-se agora
         </Link>
       </p>
     </div>

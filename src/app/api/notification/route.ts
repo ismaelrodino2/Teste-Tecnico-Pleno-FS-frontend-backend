@@ -15,6 +15,7 @@ export async function POST(req: NextRequest) {
       admId: body.admId,
       workerId: body.workerId,
       confirmation: false,
+      createdAt: new Date().toISOString(),
     });
 
     const notification = await prisma.notification.create({
@@ -47,8 +48,6 @@ export async function POST(req: NextRequest) {
 export async function PUT(req: NextRequest) {
   const body = await req.json();
 
-  console.log("asdasdada body", body);
-
   try {
     const notification = await prisma.notification.update({
       where: {
@@ -66,7 +65,7 @@ export async function PUT(req: NextRequest) {
       }
     );
   } catch (err) {
-    console.log( err);
+    console.log(err);
     return Response.json(
       { Notification },
       {
