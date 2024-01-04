@@ -19,7 +19,7 @@ export function SignUpScreen() {
       setLoading(true);
       const { data } = await supabase.auth.signUp({ email, password });
 
-      const response = await fetch("/api/user", {
+      await fetch("/api/user", {
         method: "POST",
         headers: {
           "Content-Type": "application-json",

@@ -1,5 +1,5 @@
 import { prismaMock } from "@/lib/singleton";
-import { GET } from "./route";
+import { GET, POST } from "./route";
 import { NextRequest } from "next/server";
 import { User } from "@prisma/client";
 
@@ -19,15 +19,14 @@ describe("Tests for user", () => {
       "http://localhost:3000/api/user?email=hello%40prisma.io"
     );
 
-    // Chamar a função GET com o objeto NextRequest modificado
     const result = await GET(request);
 
-    const json = await result?.json();
+    const json: User = (await result?.json()).user;
 
     const userWithDate = {
-      ...json.user,
-      createdAt: new Date(json.user.createdAt),
-      updatedAt: new Date(json.user.updatedAt),
+      ...json,
+      createdAt: new Date(json.createdAt),
+      updatedAt: new Date(json.updatedAt),
     };
 
     expect(userWithDate).toEqual(user);
@@ -53,5 +52,30 @@ describe("Tests for user", () => {
     }));
 
     expect(usersWithDate).toEqual(users);
+  });
+
+  test("should create users", async () => {
+    prismaMock.user.create.mockResolvedValue(user);
+
+    const request = new NextRequest("http://localhost:3000/api/user", {
+      method: "POST",
+      body: JSON.stringify({
+        id: user.id,
+        email: user.email,
+        accountType: user.accountType,
+      }),
+    });
+
+    const result = await POST(request);
+
+    const json: User = (await result?.json()).user;
+
+    const userWithDate = {
+      ...json,
+      createdAt: new Date(json.createdAt),
+      updatedAt: new Date(json.updatedAt),
+    };
+
+    expect(userWithDate).toEqual(user);
   });
 });

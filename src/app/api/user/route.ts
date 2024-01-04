@@ -8,8 +8,6 @@ export async function GET(req: NextRequest) {
   const email: string = searchParams.get("email")!;
   const accountType: string = searchParams.get("accountType")!;
 
-
-
   try {
     if (email) {
       const user = await prisma.user.findFirst({
@@ -52,13 +50,15 @@ export async function POST(req: NextRequest) {
         accountType: body.accountType,
       },
     });
-    return NextResponse.json({ user }, {
-      headers: corsHeaders,
-    });
+    return NextResponse.json(
+      { user },
+      {
+        headers: corsHeaders,
+      }
+    );
   } catch (err) {
-    return  Response.json({ user: null });
+    return Response.json({ user: null });
   } finally {
     await prisma.$disconnect();
   }
 }
-
