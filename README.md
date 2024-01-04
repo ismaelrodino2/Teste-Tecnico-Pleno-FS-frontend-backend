@@ -41,3 +41,13 @@ pnpm i
 ```#!/bin/sh
 pnpm dev
 ```
+
+## Testando o projeto
+
+Para testar algumas funcionalidades, apenas rode:
+
+1. Instale as dependências:
+
+```#!/bin/sh
+pnpm test
+```
