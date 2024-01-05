@@ -71,7 +71,7 @@ export function SignUpScreen() {
         </Form.Item>
 
         <Form.Item<SignUpFormSchemaSubmit>
-          label="Confirm Passowrd"
+          label="Confirm"
           name="confirmPassword"
           rules={[{ required: true, message: "Please input your password!" }]}
         >
@@ -100,7 +100,7 @@ export function SignUpScreen() {
       <div className="inline-flex items-center justify-center w-full">
         <hr className="w-full h-px my-6 bg-lightGray border-0 " />
         <span className="absolute px-3 font-semibold text-sm text-mediumgGray -translate-x-1/2 bg-white left-1/2  ">
-          {"auth.or"}
+          ou
         </span>
       </div>
 

@@ -50,7 +50,7 @@ export default function RegisterOrders({
   };
 
   return (
-    <div className="bg-gray-100 min-h-screen flex items-center justify-center">
+    <div className="bg-gray-100 min-h-[calc(100vh-76px)] flex items-center justify-center">
       <div className="container mx-auto p-4 flex flex-col max-w-[500px] bg-white rounded-md shadow-md">
         <h1 className="text-2xl font-bold mb-4">Cadastre até 3 pedidos</h1>
         <Form
@@ -133,7 +133,6 @@ export default function RegisterOrders({
                   <Button
                     type="dashed"
                     onClick={() => add()}
-                    style={{ width: "60%" }}
                     icon={<PlusOutlined />}
                   >
                     Adicione um item para entrega
@@ -143,7 +142,7 @@ export default function RegisterOrders({
                     onClick={() => {
                       add("Item do começo", 0);
                     }}
-                    style={{ width: "60%", marginTop: "20px" }}
+                    style={{  marginTop: "20px" }}
                     icon={<PlusOutlined />}
                   >
                     Adicione o item para o começo

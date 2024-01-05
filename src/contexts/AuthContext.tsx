@@ -25,7 +25,7 @@ interface AuthProviderProps {
 
 export const AuthContext = createContext({} as AuthContextProps);
 
-export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
+export const Auth: React.FC<AuthProviderProps> = ({ children }) => {
   const [authenticated, setAuthenticated] = useState(false);
   const [user, setUser] = useState();
 

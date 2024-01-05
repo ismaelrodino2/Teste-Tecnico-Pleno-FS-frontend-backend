@@ -2,13 +2,7 @@
 
 Desafio Técnico: Sistema de Confirmação de Chegada e Atribuição de Pedidos
 
-⚙️ Esse desafio consiste em uma aplicação web utilizando React para o frontend, React Native para o aplicativo de entregadores, e Node.js para o backend. O sistema deve permitir a notificação do estabelecimento da chegada do entregador, a confirmação da chegada pelo estabelecimento, o cadastro de pedidos pelo estabelecimento após a confirmação, e a visualização da lista de pedidos pelo entregador.
-
-⭐ Get Started
-
-- Add environment variables as in .env.example and also the domains of your pictures in next.config.js;
-- Run yarn;
-- Run yarn dev;
+⚙️ Esse desafio consiste em uma aplicação web utilizando React para o frontend, React Native para o aplicativo de entregadores, e Node.js para o backend. O sistema deve permitir a notificação do estabelecimento da chegada do entregador, a confirmação da chegada pelo estabelecimento, o cadastro de pedidos pelo estabelecimento após a confirmação, e a visualização da lista de pedidos pelo entregador. Esse desafio foi desenvolvido num período curto, com suas principais funcionalidades em aproximadamente 4 dias.
 
 ## Funcionalidades
 
@@ -45,8 +39,6 @@ pnpm dev
 ## Testando o projeto
 
 Para testar algumas funcionalidades, apenas rode:
-
-1. Instale as dependências:
 
 ```#!/bin/sh
 pnpm test

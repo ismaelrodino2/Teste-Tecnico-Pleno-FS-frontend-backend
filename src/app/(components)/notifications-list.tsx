@@ -69,7 +69,7 @@ export const Notifications = (props: Props) => {
             <Button
               loading={loading === notification.id}
               disabled={notification.confirmation}
-              onClick={() => handleConfirmArrive(notification.id)}
+              onClick={async() => await handleConfirmArrive(notification.id)}
             >
               Confirmar Chegada -
               {new Date(notification.createdAt).toLocaleString()}

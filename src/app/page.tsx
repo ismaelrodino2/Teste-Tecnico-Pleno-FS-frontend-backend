@@ -7,7 +7,7 @@ import Link from "next/link";
 export default async function Home() {
   //we need to keep in the same url for the 'chatRoomId'
   return (
-    <div className="min-h-screen flex items-center justify-center">
+    <div className="min-h-[calc(100vh-76px)] flex items-center justify-center">
       <div className="text-center">
         <h1 className="text-4xl font-bold mb-4">BEM-VINDO</h1>
         <p className="text-gray-600 mb-8">Explore mais em nosso Dashboard.</p>
