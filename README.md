@@ -2,7 +2,7 @@
 
 Desafio Técnico: Sistema de Confirmação de Chegada e Atribuição de Pedidos
 
-⚙️ Esse desafio consiste em uma aplicação web utilizando React para o frontend, React Native para o aplicativo de entregadores, e Node.js para o backend. O sistema deve permitir a notificação do estabelecimento da chegada do entregador, a confirmação da chegada pelo estabelecimento, o cadastro de pedidos pelo estabelecimento após a confirmação, e a visualização da lista de pedidos pelo entregador. Esse desafio foi desenvolvido num período curto, com suas principais funcionalidades em aproximadamente 4 dias.
+⚙️ Esse desafio consiste em uma aplicação web utilizando React para o frontend, React Native para o aplicativo de entregadores, e Node.js para o backend. O sistema deve permitir a notificação do estabelecimento da chegada do entregador, a confirmação da chegada pelo estabelecimento, o cadastro de pedidos pelo estabelecimento após a confirmação, e a visualização da lista de pedidos pelo entregador. Esse desafio foi desenvolvido num período curto, com suas principais funcionalidades em aproximadamente 4 dias - tempo máximpo para a realização.
 
 ## Funcionalidades
 
